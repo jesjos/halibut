@@ -17,9 +17,6 @@ module Halibut::Core
     # A collection of embedded resources, grouped by relation.
     attr_reader :embedded
 
-    # A collection of namespaces defined in the document
-    attr_reader :namespace
-
     # Initialize a new Resource.
     #
     # As defined in the spec, the resource SHOULD have a self link, but it
@@ -41,7 +38,6 @@ module Halibut::Core
     # @param [Hash] links resource links.
     # @param [Hash] embedded embedded resources.
     def initialize(href=nil, properties={}, links={}, embedded={})
-      @namespaces      = RelationMap.new
       @links           = RelationMap.new
       @embedded        = RelationMap.new
       @embedded_arrays = RelationMap.new(single_item_arrays: true)
