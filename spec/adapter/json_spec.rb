@@ -30,7 +30,7 @@ describe Halibut::Adapter::JSON do
     resource.add_link "next", "/orders/9"
     resource.set_property "currentlyProcessing", 14
     resource.set_property "shippedToday", 20
-    resource.add_embedded_resource "orders", order
+    resource.embed_resource "orders", [order]
 
     subject = Halibut::Adapter::JSON.dump resource
 

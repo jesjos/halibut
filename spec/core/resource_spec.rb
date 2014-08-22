@@ -119,15 +119,15 @@ describe Halibut::Core::Resource do
     end
 
     it "has a resource embedded into an array" do
-      subject.add_embedded_resource 'users', res1
+      subject.embed_resource 'users', [res1]
 
       subject.to_hash['_embedded']['users'].length.must_equal 1
       subject.to_hash['_embedded']['users'].first.must_equal res1.to_hash
     end
 
     it "has multiple resources embedded into an array" do
-      subject.add_embedded_resource 'users', res1
-      subject.add_embedded_resource 'users', res2
+      subject.embed_resource 'users', res1
+      subject.embed_resource 'users', res2
 
       subject.to_hash['_embedded']['users'].length.must_equal 2
       subject.to_hash['_embedded']['users'].first.must_equal res1.to_hash
