@@ -49,7 +49,7 @@ module Halibut::Core
     #
     # @return [String,nil] the self link of the resource
     def href
-      @links.fetch('self', []).map(&:href).first
+      Halibut::Utilities.array_wrap(@links['self']).map(&:href).first
     end
 
     # Returns the namespace associated with the name.
