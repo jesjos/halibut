@@ -54,15 +54,21 @@ module Halibut::Core
     end
 
 
-    # Always returns an array
+    # Always returns nil or an array
     def [](relation)
-      Halibut::Utilities.array_wrap(@relations[relation])
+      Halibut::Utilities.array_wrap(@relations[relation]) if @relations.has_key?(relation)
     end
 
 
-    # Always returns an array
+    # If the key is found, wrap it in an array.
+    # Otherwise, fall back to normal fetch behaviour.
     def fetch(*args, &block)
-      Halibut::Utilities.array_wrap(@relations.fetch(*args, &block))
+      key = args.first
+      if value = @relations[key]
+        Halibut::Utilities.array_wrap(value)
+      else
+        @relations.fetch(*args, &block)
+      end
     end
 
     # Returns a hash corresponding to the object.
