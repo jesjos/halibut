@@ -23,5 +23,6 @@ Gem::Specification.new do |gem|
   # this version of minitest adds parallelization
   gem.add_development_dependency "rake"
   gem.add_development_dependency "minitest", ">= 4.2"
+  gem.add_development_dependency "minitest-spec-context"
   gem.add_development_dependency "hash-differ"
 end

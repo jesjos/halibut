@@ -1,4 +1,5 @@
 require 'bundler/setup'
+require 'minitest-spec-context'
 
 require 'coveralls'
 Coveralls.wear!
