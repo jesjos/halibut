@@ -108,10 +108,9 @@ module Halibut::Adapter
         links = @json.fetch('_links', [])
 
         links.each do |relation,values|
-          link = ([] << values).flatten
-
+          link = Halibut::Utilities.array_wrap(values)
           link.each do |attrs|
-            href      = attrs.delete 'href'
+            href = attrs.delete 'href'
             @halibut.add_link(relation, href, attrs)
           end
         end
