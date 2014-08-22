@@ -24,3 +24,4 @@ Halibut.extend Halibut::Adapter::JSON::ConvenienceMethods
 module Halibut::Core; end
 
 require 'halibut/core/resource'
+require 'halibut/utilities'
