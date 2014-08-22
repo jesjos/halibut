@@ -63,12 +63,12 @@ module Halibut::Core
     #                 for.
     # @return [Halibut::Core::Link]
     def namespace(name)
-      @links['curie'].select {|ns| ns.name == name }.first
+      @links['curies'].select {|ns| ns.name == name }.first
     end
     alias_method :ns, :namespace
 
     def namespaces
-      @links['curie']
+      @links['curies']
     end
 
     # Sets a property in the resource.
@@ -111,7 +111,7 @@ module Halibut::Core
     # @param [String] name The name of the namespace
     # @param [String] href The templated URI of the namespace
     def add_namespace(name, href)
-      add_link 'curie', href, templated: true, name: name
+      add_link('curies', href, templated: true, name: name)
     end
 
     # Adds link to relation.
