@@ -26,7 +26,8 @@ module Halibut::Adapter
     #
     # @param [StringIO] json the JSON to parse
     def self.parse(json)
-      ResourceExtractor.new(json).resource
+      data = MultiJson.load(json)
+      ResourceExtractor.new(data).resource
     end
 
     # Returns a JSON string representation of an Halibut::Core::Resource
@@ -71,17 +72,17 @@ module Halibut::Adapter
     #
     class ResourceExtractor
 
-      # Straight-forward, just pass in the JSON string you want to extract the
+      # Straight-forward, just pass in a hash with the data you want to extract the
       # resource from.
       #
       # @example
-      #     json = '{"_links":{"self":{"href":"http://example.com"}}}'
-      #     ResourceExtractor.new('{}')
+      #     json = {"_links" => {"self" => {"href" => "http://example.com"}}}
+      #     ResourceExtractor.new(json)
       #
-      # @param [StringIO] json the json from which to extract the resource
-      def initialize(json)
+      # @param [Hash] json data from which to extract the resource
+      def initialize(data)
         @halibut = Halibut::Core::Resource.new
-        @json    = MultiJson.load(json)
+        @json    = data
 
         extract_properties
         extract_links
@@ -120,11 +121,9 @@ module Halibut::Adapter
         resources = @json.fetch('_embedded', [])
 
         resources.each do |relation,values|
-          embeds = ([] << values).flatten
-
-          embeds.map  {|embed| MultiJson.dump embed                     }
-                .map  {|embed| Halibut::Adapter::JSON.parse embed       }
-                .each {|embed| @halibut.embed_resource(relation, embed) }
+          embedded = Halibut::Utilities.array_wrap(values)
+          embedded.map  {|embed| ResourceExtractor.new(embed).resource }
+                  .each {|embed| @halibut.embed_resource(relation, embed) }
         end
       end
     end
