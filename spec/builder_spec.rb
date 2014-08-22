@@ -170,10 +170,9 @@ describe Halibut::Builder do
         namespace 'cs', 'http://cs-api.herokuapp.com/rels/{rel}'
       end
 
-      curie = builder.resource.links['curie'].first
-      curie.name.must_equal namespace
-      curie.href.must_equal href
+      curies = builder.resource.links['curies'].first
+      curies.name.must_equal namespace
+      curies.href.must_equal href
     end
   end
-
 end
