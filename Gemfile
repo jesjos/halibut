@@ -4,7 +4,6 @@ source 'https://rubygems.org'
 gemspec
 
 group :travis do
-  gem "rake"
   gem "coveralls"
 end
 
