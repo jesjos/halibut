@@ -43,7 +43,6 @@ module Halibut::Core
       end
     end
 
-
     # Sets an object to a relation. Overwrites previous relation.
     #
     # @param [String] relation  relation that the object belongs to
@@ -53,12 +52,10 @@ module Halibut::Core
       @relations[relation] = item
     end
 
-
     # Always returns nil or an array
     def [](relation)
       Halibut::Utilities.array_wrap(@relations[relation]) if @relations.has_key?(relation)
     end
-
 
     # If the key is found, wrap it in an array.
     # Otherwise, fall back to normal fetch behaviour.
@@ -93,7 +90,9 @@ module Halibut::Core
 
     def validate_item!(item)
       valid = if item.is_a?(Array)
-                item.all? {|sub_item| sub_item.respond_to?(:to_hash) }
+                item.all? do |sub_item|
+                  sub_item.respond_to?(:to_hash)
+                end
               else
                 item.respond_to?(:to_hash)
               end

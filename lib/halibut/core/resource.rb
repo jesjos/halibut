@@ -58,7 +58,7 @@ module Halibut::Core
     #                 for.
     # @return [Halibut::Core::Link]
     def namespace(name)
-      @links['curies'].select {|ns| ns.name == name }.first
+      @links['curies'].select { |ns| ns.name == name }.first
     end
     alias_method :ns, :namespace
 

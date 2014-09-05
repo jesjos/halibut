@@ -12,7 +12,7 @@ describe Halibut::Core::RelationMap do
   describe '#add' do
     context "when there was no prior relation" do
       it "has one relation" do
-        subject.add 'first', { value: 'first'}
+        subject.add 'first', { value: 'first' }
         assert_equal 1, subject['first'].length
         assert_equal 'first', subject['first'].first[:value]
       end
@@ -20,8 +20,8 @@ describe Halibut::Core::RelationMap do
 
     context "when there was prior relation" do
       it "has an array of two relations" do
-        subject.add 'first', { value: 'first'}
-        subject.add 'first', { value: 'second'}
+        subject.add 'first', { value: 'first' }
+        subject.add 'first', { value: 'second' }
 
         subject['first'].length.must_equal 2
         subject['first'].first[:value].must_equal 'first'
